@@ -34,6 +34,12 @@ const questions = [
         message: 'Provide instructions and examples for use of your project',
     },
     {
+        type: 'list',
+        name: 'license',
+        message: 'Which License did you use for your application?',
+        choices: ['MIT', 'Apache', 'GPL', 'ISC'],
+    },
+    {
         type: 'input',
         name: 'collaborators',
         message: 'Provide the names of any contributors who worked on this project with you (if this was an independent project, leave this blank)'
@@ -62,44 +68,58 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    const readmeContent = `
-    #${projectTitle}
-
-    ## Description
-    ${descriptionWhat}
-    ${descriptionWhy}
-
-    ## Table of Contents
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [License](#license)
-    - [Contributing](#contributing)
-    - [Tests](#tests)
-    - [Questions](#questions)
-
-    ## Installation
-    ${installation}
-
-    ## Usage
-    ${usage}
-
-    ## License
-    ${}
-
-    ## Contributing
-    Other developers who collaborated with me on this project: ${collaborators}
-    Outside assets I used on this project: ${assets}
-
-    ## Tests
-    ${tests}
-
-    ## Questions
-    Do you still have questions or further inquiries? Reach out to me on GitHub at http://github.com/${username} or e-mail me at ${email}
-    `
+    const { license, projectTitle, descriptionWhat, descriptionWhy, installation, usage, collaborators, assets, tests, username, email } = data;
+    const licenseBadge = `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
+    const readmeContent = `# ${projectTitle}
+    
+${licenseBadge}
+    
+## Description
+${descriptionWhat}
+${descriptionWhy}
+    
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
+    
+## Installation
+${installation}
+    
+## Usage
+${usage}
+    
+## License
+This project is covered under the ${license} license.
+    
+## Contributing
+Other developers who collaborated with me on this project: ${collaborators}
+Outside assets I used on this project: ${assets}
+    
+## Tests
+${tests}
+    
+## Questions
+Do you still have questions or further inquiries? Reach out to me on GitHub at http://github.com/${username} or e-mail me at ${email}
+`;
+    fs.writeFileSync(fileName, readmeContent);
 }
 
 // TODO: Create a function to initialize app
-function init() { }
+function init() {
+    inquirer
+        .prompt(questions)
+        .then((data) => {
+            writeToFile('README-Template.md', data);
+            console.log('README file generated successfully.');
+        })
+        .catch((error) => {
+            console.error('An error occurred:', error);
+        });
+}
 
 // Function call to initialize app
 init();
