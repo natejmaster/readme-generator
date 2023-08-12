@@ -37,7 +37,7 @@ const questions = [
         type: 'list',
         name: 'license',
         message: 'Which License did you use for your application?',
-        choices: ['MIT', 'Apache', 'GPL', 'ISC'],
+        choices: ['MIT', 'Apache-2.0', 'GPL', 'ISC'],
     },
     {
         type: 'input',
@@ -81,6 +81,7 @@ ${licenseBadge}
     
 ## Description
 ${descriptionWhat}
+
 ${descriptionWhy}
     
 ## Table of Contents
