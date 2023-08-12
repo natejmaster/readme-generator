@@ -2,7 +2,7 @@
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   let licenseBadge = ''
-  if (license) {
+  if (license !== 'No License') {
     licenseBadge = `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
   }
     return licenseBadge;
@@ -12,16 +12,17 @@ function renderLicenseBadge(license) {
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
   let licenseURL = ''
-  if (license) {
+  if (license !== 'No License') {
     licenseURL = `https://choosealicense.com/licenses/${license}/`
   }
+  return licenseURL
 }
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   let licenseText = ''
-  
+  if (license !== 'No License') {
   switch (license) {
     case 'MIT':
       licenseText = 
@@ -89,12 +90,45 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.`
   }
+  return licenseText;
+}
 };
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `# ${data.title}
+  const licenseBadge = renderLicenseBadge(data.license);
+  const licenseURL = renderLicenseLink(data.license);
+  const licenseText = renderLicenseSection(data.license);
+  
+  return `
+# ${data.projectTitle}
+    
+${licenseBadge}
+    
+## Description
+${data.descriptionWhat}
 
+${data.descriptionWhy}
+    
+## Table of Contents
+...
+
+## Installation
+...
+
+## Usage
+...
+
+## License
+${licenseURL}
+
+${licenseText}
+...
 `;
 }
 
-module.exports = generateMarkdown;
+module.exports = {
+  renderLicenseBadge,
+  renderLicenseLink,
+  renderLicenseSection,
+  generateMarkdown
+};

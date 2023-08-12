@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown.js')
 // TODO: Create an array of questions for user input
 const questions = [
     {
@@ -37,7 +38,7 @@ const questions = [
         type: 'list',
         name: 'license',
         message: 'Which License did you use for your application?',
-        choices: ['MIT', 'Apache-2.0', 'GPL', 'ISC'],
+        choices: ['MIT', 'Apache-2.0', 'GPL', 'ISC', 'No License'],
     },
     {
         type: 'input',
@@ -99,7 +100,9 @@ ${installation}
 ${usage}
     
 ## License
-This project is covered under the ${license} license.
+${licenseUrl}
+
+${licenseText}
     
 ## Contributing
 Other developers who collaborated with me on this project: ${collaborators}
@@ -119,7 +122,8 @@ function init() {
     inquirer
         .prompt(questions)
         .then((data) => {
-            writeToFile('README-Template.md', data);
+            const markdownContent = generateMarkdown(data);
+            writeToFile('README-Template.md', data, markdown);
             console.log('README file generated successfully.');
         })
         .catch((error) => {
