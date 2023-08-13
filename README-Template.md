@@ -1,9 +1,11 @@
+
 # Fridge Raider
     
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
     
 ## Description
 stuff
+
 stuff
     
 ## Table of Contents
@@ -21,14 +23,14 @@ stuff
 stuff
     
 ## License
-This project is covered under the MIT license.
+undefined
     
 ## Contributing
-Other developers who collaborated with me on this project: 
-Outside assets I used on this project: 
+Other developers who collaborated with me on this project: stuff
+Outside assets I used on this project: stuff
     
 ## Tests
 stuff
     
 ## Questions
-Do you still have questions or further inquiries? Reach out to me on GitHub at http://github.com/natejmaster or e-mail me at undefined
+Do you still have questions or further inquiries? Reach out to me on GitHub at http://github.com/natejmaster or e-mail me at natejmaster@gmail.com

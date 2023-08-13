@@ -1,7 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require('./utils/generateMarkdown.js')
+const { generateMarkdown, renderLicenseBadge, renderLicenseLink, renderLicenseSection }= require('./utils/generateMarkdown.js')
 // TODO: Create an array of questions for user input
 const questions = [
     {
@@ -74,9 +74,10 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    const { license, projectTitle, descriptionWhat, descriptionWhy, installation, usage, collaborators, assets, tests, username, email } = data;
+    const { license, projectTitle, descriptionWhat, descriptionWhy, installation, usage, collaborators, assets, tests, username, email, licenseSection} = data;
     const licenseBadge = `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
-    const readmeContent = `# ${projectTitle}
+    const readmeContent = `
+# ${projectTitle}
     
 ${licenseBadge}
     
@@ -100,9 +101,7 @@ ${installation}
 ${usage}
     
 ## License
-${licenseUrl}
-
-${licenseText}
+${licenseSection}
     
 ## Contributing
 Other developers who collaborated with me on this project: ${collaborators}
@@ -122,8 +121,11 @@ function init() {
     inquirer
         .prompt(questions)
         .then((data) => {
+            data.licenseURL = renderLicenseLink(data.license);
+            data.licenseBadge = renderLicenseBadge(data.license);
+            data.licenseText = renderLicenseSection(data.license);
             const markdownContent = generateMarkdown(data);
-            writeToFile('README-Template.md', data, markdown);
+            writeToFile('README-Template.md', data, markdownContent);
             console.log('README file generated successfully.');
         })
         .catch((error) => {

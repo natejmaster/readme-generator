@@ -11,11 +11,11 @@ function renderLicenseBadge(license) {
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
-  let licenseURL = ''
   if (license !== 'No License') {
-    licenseURL = `https://choosealicense.com/licenses/${license}/`
+    return `https://choosealicense.com/licenses/${license}/`
+  } else {
+  return '';
   }
-  return licenseURL
 }
 
 // TODO: Create a function that returns the license section of README
@@ -27,19 +27,26 @@ function renderLicenseSection(license) {
     case 'MIT':
       licenseText = 
 `MIT License
+
 Copyright (c) 2023
-      
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.`;
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.`;
 break;
       case 'Apache-2.0':
         licenseText =
@@ -95,10 +102,20 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.`
 };
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  const licenseBadge = renderLicenseBadge(data.license);
+  const licenseBadge = data.licenseBadge;
   const licenseURL = renderLicenseLink(data.license);
   const licenseText = renderLicenseSection(data.license);
-  
+
+  let licenseSection = '';
+
+  if (licenseURL && licenseText) {
+    licenseSection = `
+    ${licenseURL}
+    
+    ${licenseText}
+    `;
+  }
+
   return `
 # ${data.projectTitle}
     
@@ -119,10 +136,17 @@ ${data.descriptionWhy}
 ...
 
 ## License
-${licenseURL}
-
-${licenseText}
-...
+${licenseSection}
+    
+## Contributing
+Other developers who collaborated with me on this project: ${data.collaborators}
+Outside assets I used on this project: ${data.assets}
+    
+## Tests
+${data.tests}
+    
+## Questions
+Do you still have questions or further inquiries? Reach out to me on GitHub at http://github.com/${data.username} or e-mail me at ${data.email}
 `;
 }
 
