@@ -137,6 +137,7 @@ ${licenseSection}
     
 ## Contributing
 Other developers who collaborated with me on this project: ${data.collaborators}
+
 Outside assets I used on this project: ${data.assets}
     
 ## Tests
