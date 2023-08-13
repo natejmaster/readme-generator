@@ -73,47 +73,8 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    const { license, projectTitle, descriptionWhat, descriptionWhy, installation, usage, collaborators, assets, tests, username, email, licenseSection} = data;
-    const licenseBadge = `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
-    const readmeContent = `
-# ${projectTitle}
-    
-${licenseBadge}
-    
-## Description
-${descriptionWhat}
-
-${descriptionWhy}
-    
-## Table of Contents
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
-- [Contributing](#contributing)
-- [Tests](#tests)
-- [Questions](#questions)
-    
-## Installation
-${installation}
-    
-## Usage
-${usage}
-    
-## License
-${licenseSection}
-    
-## Contributing
-Other developers who collaborated with me on this project: ${collaborators}
-Outside assets I used on this project: ${assets}
-    
-## Tests
-${tests}
-    
-## Questions
-Do you still have questions or further inquiries? Reach out to me on GitHub at http://github.com/${username} or e-mail me at ${email}
-`;
-    fs.writeFileSync(fileName, readmeContent);
+function writeToFile(fileName, markdownContent) {
+    fs.writeFileSync(fileName, markdownContent);
 }
 
 // TODO: Create a function to initialize app
@@ -125,7 +86,7 @@ function init() {
             data.licenseBadge = renderLicenseBadge(data.license);
             data.licenseText = renderLicenseSection(data.license);
             const markdownContent = generateMarkdown(data);
-            writeToFile('README-Template.md', data, markdownContent);
+            writeToFile('README-Template.md', markdownContent);
             console.log('README file generated successfully.');
         })
         .catch((error) => {

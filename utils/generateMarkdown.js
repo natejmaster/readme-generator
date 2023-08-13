@@ -106,15 +106,7 @@ function generateMarkdown(data) {
   const licenseURL = renderLicenseLink(data.license);
   const licenseText = renderLicenseSection(data.license);
 
-  let licenseSection = '';
-
-  if (licenseURL && licenseText) {
-    licenseSection = `
-    ${licenseURL}
-    
-    ${licenseText}
-    `;
-  }
+  const licenseSection = renderLicenseSection(data.license);
 
   return `
 # ${data.projectTitle}
@@ -127,13 +119,18 @@ ${data.descriptionWhat}
 ${data.descriptionWhy}
     
 ## Table of Contents
-...
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
 ## Installation
-...
+${data.installation}
 
 ## Usage
-...
+${data.usage}
 
 ## License
 ${licenseSection}
