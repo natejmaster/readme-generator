@@ -4,6 +4,8 @@ function renderLicenseBadge(license) {
   let licenseBadge = ''
   if (license !== 'No License') {
     licenseBadge = `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
+  } else {
+    licenseBadge = '';
   }
     return licenseBadge;
   }
@@ -96,6 +98,10 @@ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.`
+break;
+    case 'No License':
+        licenseText = 'There is no license associated with this application'
+        break;
   }
   return licenseText;
 }
@@ -133,11 +139,11 @@ ${data.installation}
 ${data.usage}
 
 ## License
-${licenseSection}
+${licenseURL}\n
+${data.license !== 'No License' ? licenseSection : 'There is no license associated with this application'}
     
 ## Contributing
-Other developers who collaborated with me on this project: ${data.collaborators}
-
+Other developers who collaborated with me on this project: ${data.collaborators}\n
 Outside assets I used on this project: ${data.assets}
     
 ## Tests
