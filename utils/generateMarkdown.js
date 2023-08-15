@@ -1,9 +1,11 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
+  //licenseBadge is declared empty. If the data value for license is anything other than 'No License' a badge template is created
   let licenseBadge = ''
   if (license !== 'No License') {
     licenseBadge = `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
+    //Otherwise, the licenseBadge value is an empty string
   } else {
     licenseBadge = '';
   }
@@ -13,6 +15,7 @@ function renderLicenseBadge(license) {
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
+  //Functionality works similarly to previous function except with a link instead of a badge
   if (license !== 'No License') {
     return `https://choosealicense.com/licenses/${license}/`
   } else {
@@ -25,6 +28,7 @@ function renderLicenseLink(license) {
 function renderLicenseSection(license) {
   let licenseText = ''
   if (license !== 'No License') {
+    //Switch function with different text for each case/license
   switch (license) {
     case 'MIT':
       licenseText = 
@@ -113,7 +117,7 @@ function generateMarkdown(data) {
   const licenseText = renderLicenseSection(data.license);
 
   const licenseSection = renderLicenseSection(data.license);
-
+//Template literal to be populated by data collected by inquirer.
   return `
 # ${data.projectTitle}
     
@@ -153,7 +157,7 @@ ${data.tests}
 Do you still have questions or further inquiries? Reach out to me on GitHub at http://github.com/${data.username} or e-mail me at ${data.email}
 `;
 }
-
+//Exports all data so it can be rendered according to init call in index.js
 module.exports = {
   renderLicenseBadge,
   renderLicenseLink,

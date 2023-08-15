@@ -68,11 +68,13 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
+//Writes the markdown content created in generateMarkdown to a readme file.
 function writeToFile(fileName, markdownContent) {
     fs.writeFileSync(fileName, markdownContent);
 }
 
 // TODO: Create a function to initialize app
+//Function calls inquirer, displays the prompt questions in the terminal, and then runs the necessary functions using the data collected
 function init() {
     inquirer
         .prompt(questions)
@@ -84,6 +86,7 @@ function init() {
             writeToFile('README-Template.md', markdownContent);
             console.log('README file generated successfully.');
         })
+        //If for some reason there is an error collecting or rendering the data, an error message is displayed.
         .catch((error) => {
             console.error('An error occurred:', error);
         });
